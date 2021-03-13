@@ -12,7 +12,6 @@ class Window(QMainWindow):
         super().__init__(parent)
         self.initUI()
         
-
     def initUI(self):
         self.setWindowTitle("DiOPMatCALC")
         self.resize(400, 200)
@@ -66,8 +65,6 @@ class Window(QMainWindow):
     def _createstatusBar(self):
         self.statusBar().showMessage('Message in statusbar.')
  
- 
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     win = Window()
