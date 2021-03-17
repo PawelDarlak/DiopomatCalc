@@ -1,14 +1,19 @@
 import matplotlib
 import numpy as np
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
+from progress.bar import Bar 
+
 
 #Początek programu#################################################################
 
 def recalculateTime(TimeLineLocal):
     TimeSize = TimeLineLocal.size
     TimeLineLocal[0:] = 0
+    bar = Bar('Processing', max=TimeSize, suffix='%(percent)d%%')
     for x in range(TimeSize):
         TimeLineLocal[x] = x
+        bar.next()
+    bar.finish()
 
 xlimit = (460, 21000)
 ylimit = (250, 950)
