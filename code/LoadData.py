@@ -3,9 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from progress.bar import Bar 
 
-
 #Początek programu#################################################################
-
 def recalculateTime(TimeLineLocal):
     TimeSize = TimeLineLocal.size
     TimeLineLocal[0:] = 0
@@ -55,8 +53,6 @@ ax.annotate('local max', xy=(13000, 800), xytext=(10000, 650),
             arrowprops=dict(facecolor='black', shrink=3),
             )
 
-
-
 lns1 = ax.plot(TimeLine, TempPiec, label='Temperatura pieca', color="red")
 lns2 = ax.plot(TimeLine, TempMetal, label='Temperatura metalu', color="orange")
 lns3 = ax.plot(TimeLine, TempKrystal, label='Temperatura formy', color="brown")
@@ -88,6 +84,5 @@ plt.show()
 #print(array_from_file[2:5])
 
 if __name__ == "__main__":
-    # execute only if run as a script
+# execute only if run as a script
     pass
-
