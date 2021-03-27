@@ -44,7 +44,7 @@ class Window(QMainWindow):
         self.openAction = QAction("&Exit", self)
         #self.openAction.setText("&New")
         # self.saveAction = QAction("&Save", self)
-  #      self.exitAction = QAction("&Exit", self)
+        #self.exitAction = QAction("&Exit", self)
         # self.copyAction = QAction("&Copy", self)
         # self.pasteAction = QAction("&Paste", self)
         # self.cutAction = QAction("C&ut", self)

@@ -12,6 +12,7 @@ def recalculateTime(TimeLineLocal):
         TimeLineLocal[x] = x
         bar.next()
     bar.finish()
+    
 
 xlimit = (460, 21000)
 ylimit = (250, 950)
