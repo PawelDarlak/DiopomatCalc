@@ -4,9 +4,12 @@ from skimage.color import rgb2gray
 from skimage import filters
 from scipy import ndimage
 import numpy as np
-#import pydicom as dicom
+from mydicom import dcm
 
-grayscale = io.imread('gazar2.tif', as_gray= True) # ładowanie pliku dcm skanu CT
+dcm.new_func(1)
+
+
+grayscale = io.imread('a1.dcm', as_gray= True) # ładowanie pliku dcm skanu CT
 #grayscale = rgb2gray(raw_image) # konwersja na grayscale 
 
 grayscale = grayscale.astype('float64') # rzutowanie za uint8 na float64
