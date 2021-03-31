@@ -1,43 +1,71 @@
-import matplotlib.pyplot as plt
-import glob
-import sys
-from pydicom import dcmread
+from io import BytesIO
 
-files = []
+from pydicom import dcmread, dcmwrite
+from pydicom.filebase import DicomFileLike
 
-fpath = 'a1.dcm'
+print(__doc__)
 
-ds = dcmread('a1.dcm')
-if 'SamplesPerPixel' not in ds:
-    ds.SamplesPerPixel = 1
-
-ds.SamplesPerPixel = int(len(ds.PixelData) / (ds.get('NumberOfFrames', 1) * ds.Rows * ds.Columns * ds.BitsAllocated / 8))
+usage = "Usage: python memory_dataset.py dicom_filename"
 
 
+def write_dataset_to_bytes(dataset):
+    # create a buffer
+    with BytesIO() as buffer:
+        # create a DicomFileLike object that has some properties of DataSet
+        memory_dataset = DicomFileLike(buffer)
+        # write the dataset to the DicomFileLike object
+        dcmwrite(memory_dataset, dataset)
+        # to read from the object, you have to rewind it
+        memory_dataset.seek(0)
+        # read the contents as bytes
+        return memory_dataset.read()
 
 
-# Normal mode:
-print()
-print(f"File path........: {fpath}")
-print(f"SOP Class........: {ds.SOPClassUID} ({ds.SOPClassUID.name})")
-print()
-
-pat_name = ds.PatientName
-display_name = pat_name.family_name + ", " + pat_name.given_name
-print(f"Patient's Name...: {display_name}")
-print(f"Patient ID.......: {ds.PatientID}")
-#print(f"Modality.........: {ds.Modality}")
-#print(f"Study Date.......: {ds.StudyDate}")
-print(f"Image size.......: {ds.Rows} x {ds.Columns}")
-print(f"Pixel Spacing....: {ds.PixelSpacing}")
+def adapt_dataset_from_bytes(blob):
+    # you can just read the dataset from the byte array
+    dataset = dcmread(BytesIO(blob))
+    # do some interesting stuff
+    dataset.is_little_endian = False
+    dataset.PatientName = 'Bond^James'
+    dataset.PatientID = '007'
+    return dataset
 
 
-# use .get() if not sure the item exists, and want a default value if missing
-print(f"Slice location...: {ds.get('SliceLocation', '(missing)')}")
+class DummyDataBase:
+    def __init__(self):
+        self._blobs = {}
 
-# plot the image using matplotlib
-#ds.bit
+    def save(self, name, blob):
+        self._blobs[name] = blob
+
+    def load(self, name):
+        return self._blobs.get(name)
 
 
-plt.imshow(ds.pixel_array, cmap=plt.cm.gray)
-plt.show()
+if __name__ == '__main__':
+    import sys
+
+    if len(sys.argv) != 2:
+        print("Please supply a dicom file name:\n")
+        print(usage)
+        sys.exit(-1)
+    file_path = sys.argv[1]
+    db = DummyDataBase()
+
+    # Convert a dataset to a byte array:
+    # - read the dataset from a file
+    dataset = dcmread(file_path)
+    print(dataset)
+    # - convert the dataset to bytes
+    ds_bytes = write_dataset_to_bytes(dataset)
+    # - save the bytes in some storage
+    db.save('dataset', ds_bytes)
+
+    # Convert a byte array to a dataset:
+    # - get the bytes from storage
+    read_bytes = db.load('dataset')
+    # - convert the bytes into a dataset and do something interesting with it
+    read_dataset = adapt_dataset_from_bytes(read_bytes)
+    print(read_dataset)
+    # - you can write your dataset to a file if wanted
+    dcmwrite(file_path + '_new', read_dataset)
