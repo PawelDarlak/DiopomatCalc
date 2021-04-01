@@ -23,7 +23,7 @@ class Example(QMainWindow):
         fileMenu.addMenu(impMenu)
 
         self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('Submenu')
+        self.setWindowTitle('DiOPoMat')
         self.show()
 
 
