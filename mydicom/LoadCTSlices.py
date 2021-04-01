@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 import sys
 import glob
 
+def addSamplePerPixel(file_dcm):
+  pass
+
+
+
 # load the DICOM files
 files = []
 print('glob: {}'.format(sys.argv[1]))

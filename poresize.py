@@ -6,9 +6,6 @@ from scipy import ndimage
 import numpy as np
 from mydicom import dcm
 
-dcm.new_func(1)
-
-
 grayscale = io.imread('a1.dcm', as_gray= True) # ładowanie pliku dcm skanu CT
 #grayscale = rgb2gray(raw_image) # konwersja na grayscale 
 
