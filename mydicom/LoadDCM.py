@@ -5,15 +5,15 @@ import sys
 import glob
 
 class MyYDCMCLASS:
-  """A simple example class"""
-  i = 12345
-  files = []
+    
+    files = []
 
-  def f(self):
-    return 'hello world'
+    def f(self):
+        return 'hello world'
 
-  def addSamplePerPixel(file_dcm):
-    pass
+    def addSamplePerPixel(file_dcm):
+        
+        pass
 
 mydcmclass = MyYDCMCLASS()
 
