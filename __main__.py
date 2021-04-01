@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QAction, QMenu, QApplication
 
-
 class Example(QMainWindow):
 
     def __init__(self):
@@ -24,7 +23,7 @@ class Example(QMainWindow):
         fileMenu.addMenu(impMenu)
 
         self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('Submenu')
+        self.setWindowTitle('DiOPoMat')
         self.show()
 
 
