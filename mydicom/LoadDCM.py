@@ -4,50 +4,34 @@ import matplotlib.pyplot as plt
 import sys
 import glob
 
-class MyYDCMCLASS:
-    def __init__(self):
-        self.files = []
-    def f(self):
-        return 'hello world'
-
-    def addSamplePerPixel(file_dcm):
-        pass
-
-mydcmclass = MyYDCMCLASS()
+files = [] # list for dcm files 
 
 # load the DICOM files
 
 print('glob: {}'.format(sys.argv[1]))
 for fname in glob.glob(sys.argv[1], recursive=False):
     print("loading: {}".format(fname))
-    mydcmclass.files.append(pydicom.dcmread(fname))
+    files.append(pydicom.dcmread(fname))
 
-print("file count: {}".format(len(mydcmclass.files)))
-
-mydcmclass.addSamplePerPixel()
-
-for onefile in mydcmclass.files:
-  if 'SamplesPerPixel' not in onefile:
-    pass
-    
+print("file count: {}".format(len(files)))
 
 
-# for onefile in files:
-#   if 'SamplesPerPixel' not in onefile:
-#     onefile.SamplesPerPixel = 1
+for onefile in files:
+    if 'SamplesPerPixel' not in onefile:
+        onefile.SamplesPerPixel = 1
 
-for onefile in mydcmclass.files:
-  onefile.SliceLocation = onefile.ImagePositionPatient[2] 
+for onefile in files:
+    onefile.SliceLocation = onefile.ImagePositionPatient[2] 
 
-for onefile in mydcmclass.files:
-  onefile.SliceThickness = onefile.PixelSpacing[0]
+for onefile in files:
+    onefile.SliceThickness = onefile.PixelSpacing[0]
 
 
 
 # skip files with no SliceLocation (eg scout views)
 slices = []
 skipcount = 0
-for f in mydcmclass.files:
+for f in files:
     if hasattr(f, 'SliceLocation'):
         slices.append(f)
     else:
