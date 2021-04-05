@@ -6,8 +6,8 @@ import sys, os
 import glob
 
 #path to dcm files
-inpath = "E:\\Gasar\\test\\Gazar*.dcm"
-outpath = "E:\\Gasar\\test\\new\\"
+inpath = "E:\\Gasar\\test\\dcm\\Gazar*.dcm"
+outpath = "E:\\Gasar\\test\\dcm\\new\\"
 outname = 'out1'
 strPatientName = "gasar"
 
@@ -34,7 +34,6 @@ def SaveFileDCM(outpath: str, DataSetDCM: pydicom):
         onefile.save_as(outpath + outname + "_" + str(count) + '.dcm')
 #       onefile.save_as(outpath + str(count) + '.dcm')
     
-files: pydicom
 def AddSamplePerPixel(files: pydicom):
     #sprawdza czy istnieje w tagach SamplePerPixel. Jeżeli nie to ustawia na 1for onefile in files:
     for onefile in files:
@@ -65,28 +64,13 @@ def RemoveExtraData(files: pydicom):
         del onefile.ImageOrientationPatient
         del onefile.PhotometricInterpretation
 
-def ResizeDIM(files: pydicom):
-    from skimage.transform import resize
-    IMG_PX_SIZE = 1024
-
-    for onefile in files:
-        data = onefile.pixel_array
-        resized_img = resize(data, (IMG_PX_SIZE, IMG_PX_SIZE), anti_aliasing=True)
-        resized_img.shape
-       
-        resized_img[ resized_img < 300] = 0
-        onefile.PixelData = resized_img.tobytes()
-
-    return files  
-
-    
+   
 Templodadefiles = LoadFileDCM(inpath)
 AddSamplePerPixel(Templodadefiles)
-#AddPatientName(Templodadefiles, strPatientName)
-#AddSliceLocation(Templodadefiles)
+AddPatientName(Templodadefiles, strPatientName)
+AddSliceLocation(Templodadefiles)
 #RemoveExtraData(Templodadefiles)
-ResizeDIM(Templodadefiles)
-SaveFileDCM(outpath, ResizeDIM(Templodadefiles))
+SaveFileDCM(outpath, Templodadefiles)
 
 
 
