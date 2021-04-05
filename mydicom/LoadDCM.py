@@ -1,75 +1,147 @@
+from typing import List
 import pydicom
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
+import sys, os
 import glob
 
-files = [] # list for dcm files 
+#path to dcm files
+inpath = "E:\\Gasar\\test\\Gazar*.dcm"
+outpath = "E:\\Gasar\\test\\new\\"
+outname = 'out1'
+strPatientName = "gasar"
 
-# load the DICOM files
+def LoadFileDCM(inpath: str) -> List:
+    files = []
+    for fname in glob.glob(inpath, recursive=False):
+        print("loading: {}".format(fname))
+        files.append(pydicom.dcmread(fname))
+    print("file count: {}".format(len(files)))
+    
+    return files 
 
-print('glob: {}'.format(sys.argv[1]))
-for fname in glob.glob(sys.argv[1], recursive=False):
-    print("loading: {}".format(fname))
-    files.append(pydicom.dcmread(fname))
-
-print("file count: {}".format(len(files)))
-
-
-for onefile in files:
-    if 'SamplesPerPixel' not in onefile:
-        onefile.SamplesPerPixel = 1
-
-for onefile in files:
-    onefile.SliceLocation = onefile.ImagePositionPatient[2] 
-
-for onefile in files:
-    onefile.SliceThickness = onefile.PixelSpacing[0]
-
-
-
-# skip files with no SliceLocation (eg scout views)
-slices = []
-skipcount = 0
-for f in files:
-    if hasattr(f, 'SliceLocation'):
-        slices.append(f)
+def SaveFileDCM(outpath: str, DataSetDCM: pydicom):
+    try:
+        os.mkdir(outpath)
+    except OSError:
+        print ("Creation of the directory %s failed" % outpath)
     else:
-        skipcount = skipcount + 1
+        print ("Successfully created the directory %s " % outpath)
 
-print("skipped, no SliceLocation: {}".format(skipcount))
+    count = 100
+    for onefile in DataSetDCM:
+        count +=2
+        onefile.save_as(outpath + outname + "_" + str(count) + '.dcm')
+#       onefile.save_as(outpath + str(count) + '.dcm')
+    
+files: pydicom
+def AddSamplePerPixel(files: pydicom):
+    #sprawdza czy istnieje w tagach SamplePerPixel. Jeżeli nie to ustawia na 1for onefile in files:
+    for onefile in files:
+        if 'SamplesPerPixel' not in onefile:
+            onefile.SamplesPerPixel = 1
 
-# ensure they are in the correct order
-slices = sorted(slices, key=lambda s: s.SliceLocation)
+# Dodaje lub zmienia nazwę pacjenta
+def AddPatientName(files: pydicom, PatientName: str):
+    for onefile in files:
+        onefile.PatientName = strPatientName
 
-# pixel aspects, assuming all slices are the same
-ps = slices[0].PixelSpacing
-ss = slices[0].SliceThickness
-ax_aspect = ps[1]/ps[0]
-sag_aspect = ps[1]/ss
-cor_aspect = ss/ps[0]
+def AddSliceLocation(files: pydicom):
+    
+    icount = 0.0
+    
+    for onefile in files:
+    #    onefile.SliceLocation = icount
+        onefile.SliceThickness = onefile.PixelSpacing[0] 
+        onefile.ImagePositionPatient = [0.0, 0.0, icount]
+        icount += onefile.SliceThickness
 
-# create 3D array
-img_shape = list(slices[0].pixel_array.shape)
-img_shape.append(len(slices))
-img3d = np.zeros(img_shape)
+def RemoveExtraData(files: pydicom):
+    for onefile in files:
+        del onefile.PatientName
+        del onefile.ImagePositionPatient
+        del onefile.PixelSpacing
+        del onefile.SeriesNumber
+        del onefile.ImageOrientationPatient
+        del onefile.PhotometricInterpretation
 
-# fill 3D array with the images from the files
-for i, s in enumerate(slices):
-    img2d = s.pixel_array
-    img3d[:, :, i] = img2d
+def ResizeDIM(files: pydicom):
+    from skimage.transform import resize
+    IMG_PX_SIZE = 1024
 
-# plot 3 orthogonal slices
-a1 = plt.subplot(2, 2, 1)
-plt.imshow(img3d[:, :, img_shape[2]//2])
-a1.set_aspect(ax_aspect)
+    for onefile in files:
+        data = onefile.pixel_array
+        resized_img = resize(data, (IMG_PX_SIZE, IMG_PX_SIZE), anti_aliasing=True)
+        resized_img.shape
+       
+        resized_img[ resized_img < 300] = 0
+        onefile.PixelData = resized_img.tobytes()
 
-a2 = plt.subplot(2, 2, 2)
-plt.imshow(img3d[:, img_shape[1]//2, :])
-a2.set_aspect(sag_aspect)
+    return files  
 
-a3 = plt.subplot(2, 2, 3)
-plt.imshow(img3d[img_shape[0]//2, :, :].T)
-a3.set_aspect(cor_aspect)
+    
+Templodadefiles = LoadFileDCM(inpath)
+AddSamplePerPixel(Templodadefiles)
+#AddPatientName(Templodadefiles, strPatientName)
+#AddSliceLocation(Templodadefiles)
+#RemoveExtraData(Templodadefiles)
+ResizeDIM(Templodadefiles)
+SaveFileDCM(outpath, ResizeDIM(Templodadefiles))
 
-plt.show()
+
+
+# #sprawdza czy istnieje w tagach SamplePerPixel. Jeżeli nie to ustawia na 1
+# for onefile in files:
+#     onefile.SliceLocation = onefile.ImagePositionPatient[2] 
+
+# for onefile in files:
+#     onefile.SliceThickness = onefile.PixelSpacing[0]
+
+
+
+# # skip files with no SliceLocation (eg scout views)
+# slices = []
+# skipcount = 0
+# for f in files:
+#     if hasattr(f, 'SliceLocation'):
+#         slices.append(f)
+#     else:
+#         skipcount = skipcount + 1
+
+# print("skipped, no SliceLocation: {}".format(skipcount))
+
+# # ensure they are in the correct order
+# slices = sorted(slices, key=lambda s: s.SliceLocation)
+
+# # pixel aspects, assuming all slices are the same
+# ps = slices[0].PixelSpacing
+# ss = slices[0].SliceThickness
+# ax_aspect = ps[1]/ps[0]
+# sag_aspect = ps[1]/ss
+# cor_aspect = ss/ps[0]
+
+# # create 3D array
+# img_shape = list(slices[0].pixel_array.shape)
+# img_shape.append(len(slices))
+# img3d = np.zeros(img_shape)
+
+# # fill 3D array with the images from the files
+# for i, s in enumerate(slices):
+#     img2d = s.pixel_array
+#     img3d[:, :, i] = img2d
+
+# # plot 3 orthogonal slices
+# a1 = plt.subplot(2, 2, 1)
+# plt.imshow(img3d[:, :, img_shape[2]//2])
+# a1.set_aspect(ax_aspect)
+
+# a2 = plt.subplot(2, 2, 2)
+# plt.imshow(img3d[:, img_shape[1]//2, :])
+# a2.set_aspect(sag_aspect)
+
+# a3 = plt.subplot(2, 2, 3)
+# plt.imshow(img3d[img_shape[0]//2, :, :].T)
+# a3.set_aspect(cor_aspect)
+
+# plt.show()
+
