@@ -65,12 +65,12 @@ def RemoveExtraData(files: pydicom):
         del onefile.PhotometricInterpretation
 
    
-Templodadefiles = LoadFileDCM(inpath)
-AddSamplePerPixel(Templodadefiles)
-AddPatientName(Templodadefiles, strPatientName)
-AddSliceLocation(Templodadefiles)
-#RemoveExtraData(Templodadefiles)
-SaveFileDCM(outpath, Templodadefiles)
+# Templodadefiles = LoadFileDCM(inpath)
+# AddSamplePerPixel(Templodadefiles)
+# AddPatientName(Templodadefiles, strPatientName)
+# AddSliceLocation(Templodadefiles)
+# #RemoveExtraData(Templodadefiles)
+# SaveFileDCM(outpath, Templodadefiles)
 
 
 

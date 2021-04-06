@@ -1,8 +1,9 @@
 import sys
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QWidget, QPushButton, QAction
+from PyQt5.QtWidgets import QMainWindow, QWidget, QPushButton, QAction, QFileDialog
 from PyQt5.QtCore import QSize    
 from PyQt5.QtGui import QIcon
+import mydicom.LoadDCM as mydcm
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -44,7 +45,14 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(exitAction)
 
     def openCall(self):
-        print('Open')
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
+        if fileName:
+            print(fileName)
+
+
+        mydcm.LoadFileDCM("dupa")
 
     def newCall(self):
         print('New')

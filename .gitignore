@@ -2,4 +2,5 @@
 /.vscode
 /dist
 /build
+/mydicom/__pycache__
 /DiopomatCalc.code-workspace
