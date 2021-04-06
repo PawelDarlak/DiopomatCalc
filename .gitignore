@@ -3,4 +3,5 @@
 /dist
 /build
 /mydicom/__pycache__
+/__pycache__
 /DiopomatCalc.code-workspace
