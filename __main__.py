@@ -1,37 +1,62 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QAction, QMenu, QApplication
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QWidget, QPushButton, QAction
+from PyQt5.QtCore import QSize    
+from PyQt5.QtGui import QIcon
 
-class Example(QMainWindow):
-
+class MainWindow(QMainWindow):
     def __init__(self):
-        super().__init__()
+        QMainWindow.__init__(self)
 
-        self.initUI()
+        self.setMinimumSize(QSize(300, 100))    
+        self.setWindowTitle("PyQt menu example - pythonprogramminglanguage.com") 
 
-    def initUI(self):
+        # Add button widget
+        pybutton = QPushButton('Pyqt', self)
+        pybutton.clicked.connect(self.clickMethod)
+        pybutton.resize(100,32)
+        pybutton.move(130, 30)        
+        pybutton.setToolTip('This is a tooltip message.')  
 
-        menubar = self.menuBar()
-        fileMenu = menubar.addMenu('File')
+        # Create new action
+        newAction = QAction(QIcon('new.png'), '&New', self)        
+        newAction.setShortcut('Ctrl+N')
+        newAction.setStatusTip('New document')
+        newAction.triggered.connect(self.newCall)
 
-        impMenu = QMenu('Import', self)
-        impAct = QAction('Import mail', self)
-        impMenu.addAction(impAct)
+        # Create new action
+        openAction = QAction(QIcon('open.png'), '&Open', self)        
+        openAction.setShortcut('Ctrl+O')
+        openAction.setStatusTip('Open document')
+        openAction.triggered.connect(self.openCall)
 
-        newAct = QAction('New', self)
+        # Create exit action
+        exitAction = QAction(QIcon('exit.png'), '&Exit', self)        
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.setStatusTip('Exit application')
+        exitAction.triggered.connect(self.exitCall)
 
-        fileMenu.addAction(newAct)
-        fileMenu.addMenu(impMenu)
+        # Create menu bar and add action
+        menuBar = self.menuBar()
+        fileMenu = menuBar.addMenu('&File')
+        fileMenu.addAction(newAction)
+        fileMenu.addAction(openAction)
+        fileMenu.addAction(exitAction)
 
-        self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('DiOPoMat')
-        self.show()
+    def openCall(self):
+        print('Open')
 
+    def newCall(self):
+        print('New')
 
-def main():
-    app = QApplication(sys.argv)
-    ex = Example()
-    sys.exit(app.exec_())
+    def exitCall(self):
+        print('Exit app')
 
+    def clickMethod(self):
+        print('PyQt')
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    mainWin = MainWindow()
+    mainWin.show()
+    sys.exit( app.exec_() )
