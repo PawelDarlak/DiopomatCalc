@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QWidget, QPushButton, QAction, QFileDialog
-from PyQt5.QtCore import QSize    
+from PyQt5.QtWidgets import QMainWindow, QWidget, QPushButton, QFileDialog, QAction
+from PyQt5.QtCore import QSize  
 from PyQt5.QtGui import QIcon
 import mydicom.LoadDCM as mydcm
 
@@ -67,4 +67,4 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainWin = MainWindow()
     mainWin.show()
-    sys.exit( app.exec_() )
+    app.exec()
