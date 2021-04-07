@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget, QPushButton, QAction,
 from PyQt5.QtCore import QSize    
 from PyQt5.QtGui import QIcon, QWindow
 from mydicom import LoadDCM, LoadData
+from PyQt5.uic import loadUiType
 
 
 class MainWindow(QMainWindow):
