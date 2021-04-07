@@ -1,17 +1,17 @@
-from typing import List
+# from typing import List
 import pydicom
-import numpy as np
-import matplotlib.pyplot as plt
+#import numpy as np
+#import matplotlib.pyplot as plt
 import sys, os
 import glob
 
 #path to dcm files
-inpath = "E:\\Gasar\\test\\dcm\\Gazar*.dcm"
-outpath = "E:\\Gasar\\test\\dcm\\new\\"
+#inpath = "E:\\Gasar\\test\\dcm\\Gazar*.dcm"
+#outpath = "E:\\Gasar\\test\\dcm\\new\\"
 outname = 'out1'
 strPatientName = "gasar"
 
-def LoadFileDCM(inpath: str) -> List:
+def LoadFileDCM(inpath: str):
     files = []
     for fname in glob.glob(inpath, recursive=False):
         print("loading: {}".format(fname))

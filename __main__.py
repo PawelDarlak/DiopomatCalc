@@ -1,22 +1,34 @@
 import sys
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QWidget, QPushButton, QAction, QFileDialog
+from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget, QPushButton, QAction, QFileDialog, QStatusBar
 from PyQt5.QtCore import QSize    
-from PyQt5.QtGui import QIcon
-import mydicom.LoadDCM as mydcm
+from PyQt5.QtGui import QIcon, QWindow
+from mydicom import LoadDCM, LoadData
 
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
+        # self.setStyleSheet(appStyle)
+        # self.w = None
+        self.initUI()
 
-        self.setMinimumSize(QSize(300, 100))    
-        self.setWindowTitle("PyQt menu example - pythonprogramminglanguage.com") 
+    def initUI(self):
+        self.setMinimumSize(QSize(600, 300))    
+        self.setWindowTitle("DiopomatCalc") 
+        self.setWindowIcon(QIcon('icon.png'))
+
+        #Add statusbar
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
+        self.statusBar.setStyleSheet("background-color : grey")
+        self.statusBar.showMessage("this is status bar")
+        
 
         # Add button widget
         pybutton = QPushButton('Pyqt', self)
-        pybutton.clicked.connect(self.clickMethod)
+        # pybutton.clicked.connect(self.show_new_window)
         pybutton.resize(100,32)
-        pybutton.move(130, 30)        
+        pybutton.move(130, 100)        
         pybutton.setToolTip('This is a tooltip message.')  
 
         # Create new action
@@ -26,10 +38,10 @@ class MainWindow(QMainWindow):
         newAction.triggered.connect(self.newCall)
 
         # Create new action
-        openAction = QAction(QIcon('open.png'), '&Open', self)        
-        openAction.setShortcut('Ctrl+O')
-        openAction.setStatusTip('Open document')
-        openAction.triggered.connect(self.openCall)
+        importAction = QAction(QIcon('open.png'), '&Import', self)        
+        importAction.setShortcut('Ctrl+I')
+        importAction.setStatusTip('Import dcm file')
+        importAction.triggered.connect(self.openCall)
 
         # Create exit action
         exitAction = QAction(QIcon('exit.png'), '&Exit', self)        
@@ -41,8 +53,21 @@ class MainWindow(QMainWindow):
         menuBar = self.menuBar()
         fileMenu = menuBar.addMenu('&File')
         fileMenu.addAction(newAction)
-        fileMenu.addAction(openAction)
+        fileMenu.addAction(importAction)
         fileMenu.addAction(exitAction)
+
+        # fileMenu = menuBar.addMenu('&View')
+        # fileMenu.addAction(exitAction)
+
+        # Create about action
+        aboutAction = QAction(QIcon('exit.png'), '&About', self)        
+        aboutAction.setShortcut('Ctrl+A')
+        aboutAction.setStatusTip('About...')
+        aboutAction.triggered.connect(self.exitCall)
+        # aboutAction.triggered.connect(self.show_new_window)
+        
+        # aboutMenu = menuBar.addMenu('&About')
+        # aboutMenu.addAction(aboutAction)
 
     def openCall(self):
         options = QFileDialog.Options()
@@ -51,9 +76,8 @@ class MainWindow(QMainWindow):
         if fileName:
             print(fileName)
 
-
-        mydcm.LoadFileDCM("dupa")
-
+        LoadData.DrawChartProcess()
+       
     def newCall(self):
         print('New')
 
@@ -62,6 +86,33 @@ class MainWindow(QMainWindow):
 
     def clickMethod(self):
         print('PyQt')
+
+    # def show_new_window(self, checked):
+    #     if self.w is None:
+    #         self.w = AnotherWindow()
+    #     self.w.show()
+
+
+# class AnotherWindow(QDialog):
+#     """
+#     This "window" is a QWidget. If it has no parent, it
+#     will appear as a free-floating window as we want.
+#     """
+#     def __init__(self):
+#         super().__init__()
+#         layout = QVBoxLayout()
+#         self.setMinimumSize(QSize(600, 300))  
+#         self.setWindowTitle("About") 
+#         self.label = QLabel("Another Window")
+#         layout.addWidget(self.label)
+#         self.setLayout(layout)
+#         pybutton = QPushButton('Pyqt', self)
+#         # pybutton.clicked.connect(self.show_new_window)
+#         pybutton.resize(100,32)
+#         pybutton.move(130, 100)        
+#         pybutton.setToolTip('This is a tooltip message.')  
+#         self.setModal(True)
+      
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
