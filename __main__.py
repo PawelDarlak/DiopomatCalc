@@ -1,16 +1,10 @@
 import sys
 from PyQt5 import QtCore, QtWidgets
-<<<<<<< HEAD
 from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget, QPushButton, QAction, QFileDialog, QStatusBar
 from PyQt5.QtCore import QSize    
 from PyQt5.QtGui import QIcon, QWindow
 from mydicom import LoadDCM, LoadData
-=======
-from PyQt5.QtWidgets import QMainWindow, QWidget, QPushButton, QFileDialog, QAction
-from PyQt5.QtCore import QSize  
-from PyQt5.QtGui import QIcon
-import mydicom.LoadDCM as mydcm
->>>>>>> a14df3733cdcb97906779e3b0df2466f1beef125
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
