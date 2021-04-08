@@ -18,10 +18,16 @@ def LoadFileDCM(inpath: str):
 
 def ShowDCM(myfile):
 
-    # if 'SamplesPerPixel' not in myfile:
-    #     myfile.SamplesPerPixel = 1
+    # myDCMfile = pydicom.dcmread(myfile)
+
+    myDCMfile = pydicom.read_file(myfile)
     
-    grayscale = io.imread(myfile, as_gray= True) # ładowanie pliku dcm skanu CT
+    if 'SamplesPerPixel' not in myDCMfile:
+        myDCMfile.SamplesPerPixel = 1
+
+    pixelarray = myDCMfile.pixel_array
+
+    grayscale = io.imread(pixelarray, as_gray= True) # ładowanie pliku dcm skanu CT
     #grayscale = rgb2gray(raw_image) # konwersja na grayscale 
 
     grayscale = grayscale.astype('float64') # rzutowanie za uint8 na float64
