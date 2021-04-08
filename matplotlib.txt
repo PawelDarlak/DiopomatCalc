@@ -1,7 +1,0 @@
-I need this to work. A pressing deadline looms, and the jabbering client isn't getting any happier. So, in a fit of abject desperation, I believe I may have tracked this down.
-
-PyInstaller/hooks/hook-matplotlib.py sets the following:
-
-datas = [
-    (mpl_data_dir, ""),
-]
