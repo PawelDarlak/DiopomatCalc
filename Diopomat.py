@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget, QPushButton, QAction, QFileDialog, QStatusBar
+from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget, QPushButton, QAction, QFileDialog, QStatusBar, QLabel, QVBoxLayout
 from PyQt5.QtCore import QSize    
 from PyQt5.QtGui import QIcon, QWindow
 from mydicom import LoadDCM, LoadData
@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         # self.setStyleSheet(appStyle)
-        # self.w = None
+        self.w = None
         self.initUI()
 
     def initUI(self):
@@ -92,22 +92,21 @@ class MainWindow(QMainWindow):
         aboutAction.setShortcut('Ctrl+A')
         aboutAction.setStatusTip('About...')
         aboutAction.triggered.connect(self.exitCall)
-        # aboutAction.triggered.connect(self.show_new_window)
+        aboutAction.triggered.connect(self.show_new_window)
         
-        # aboutMenu = menuBar.addMenu('&About')
-        # aboutMenu.addAction(aboutAction)
+        aboutMenu = menuBar.addMenu('&About')
+        aboutMenu.addAction(aboutAction)
 
     def openCall(self):
-        # options = QFileDialog.Options()
-        # options |= QFileDialog.DontUseNativeDialog
-        # fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
-        # if fileName:
-        #     print(fileName)
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
+        if fileName:
+            print(fileName)
 
         LoadData.DrawChartProcess()
 
 
-       
     def newCall(self):
         print('New')
 
@@ -117,35 +116,35 @@ class MainWindow(QMainWindow):
     def clickMethod(self):
         print('PyQt')
 
-    # def show_new_window(self, checked):
-    #     if self.w is None:
-    #         self.w = AnotherWindow()
-    #     self.w.show()
+    def show_new_window(self, checked):
+        if self.w is None:
+            self.w = AnotherWindow()
+        self.w.show()
 
 
-# class AnotherWindow(QDialog):
-#     """
-#     This "window" is a QWidget. If it has no parent, it
-#     will appear as a free-floating window as we want.
-#     """
-#     def __init__(self):
-#         super().__init__()
-#         layout = QVBoxLayout()
-#         self.setMinimumSize(QSize(600, 300))  
-#         self.setWindowTitle("About") 
-#         self.label = QLabel("Another Window")
-#         layout.addWidget(self.label)
-#         self.setLayout(layout)
-#         pybutton = QPushButton('Pyqt', self)
-#         # pybutton.clicked.connect(self.show_new_window)
-#         pybutton.resize(100,32)
-#         pybutton.move(130, 100)        
-#         pybutton.setToolTip('This is a tooltip message.')  
-#         self.setModal(True)
+class AnotherWindow(QDialog):
+    """
+    This "window" is a QWidget. If it has no parent, it
+    will appear as a free-floating window as we want.
+    """
+    def __init__(self):
+        super().__init__()
+        layout = QVBoxLayout()
+        self.setMinimumSize(QSize(600, 300))  
+        self.setWindowTitle("About") 
+        self.label = QLabel("Another Window")
+        layout.addWidget(self.label)
+        self.setLayout(layout)
+        pybutton = QPushButton('Pyqt', self)
+        # pybutton.clicked.connect(self.show_new_window)
+        pybutton.resize(100,32)
+        pybutton.move(130, 100)        
+        pybutton.setToolTip('This is a tooltip message.')  
+        self.setModal(True)
       
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainWin = MainWindow()
     mainWin.show()
-    app.exec()
+    sys.exit(app.exec_())
