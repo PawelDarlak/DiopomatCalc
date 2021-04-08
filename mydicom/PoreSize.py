@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 from skimage import io
 from skimage.color import rgb2gray
 from skimage import filters
+import skimage.feature
 from scipy import ndimage
 import numpy as np
-import glob
+# import glob
 
 
 def LoadFileDCM(inpath: str):
@@ -18,8 +19,6 @@ def LoadFileDCM(inpath: str):
 
 def ShowDCM(myfile):
 
-    # myDCMfile = pydicom.dcmread(myfile)
-
     myDCMfile = pydicom.read_file(myfile)
     
     if 'SamplesPerPixel' not in myDCMfile:
@@ -27,8 +26,11 @@ def ShowDCM(myfile):
 
     pixelarray = myDCMfile.pixel_array
 
-    grayscale = io.imread(pixelarray, as_gray= True) # ładowanie pliku dcm skanu CT
-    #grayscale = rgb2gray(raw_image) # konwersja na grayscale 
+    
+
+    # grayscale = io.imread(pixelarray, cmap=plt.cm.bone) # ładowanie pliku dcm skanu CT
+    
+    grayscale = rgb2gray(pixelarray) # konwersja na grayscale 
 
     grayscale = grayscale.astype('float64') # rzutowanie za uint8 na float64
     grayscale *= (1.0/grayscale.max()) # normalizacja do zakresu 0...1
@@ -86,11 +88,11 @@ def ShowDCM(myfile):
     # bar width in the histogram bar plot
     width=x[2]-x[1]  
 
-    # Bar plot
-    # with plt.style.context(('bmh')):    
-    #     plt.bar(x,hh, width, color='r')
-    #     plt.xlabel('Powierzhnia porów (mm$^{2}$)')
-    #     plt.ylabel('Ilość porów')
+    #Bar plot
+    with plt.style.context(('bmh')):    
+        plt.bar(x,hh, width, color='r')
+        plt.xlabel('Powierzhnia porów (mm$^{2}$)')
+        plt.ylabel('Ilość porów')
 
     iloscporow = "Całkowita ilość porów = " + str(n_labels)
     ax[3].text(10.5, 80, iloscporow)
