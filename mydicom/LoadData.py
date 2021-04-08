@@ -90,5 +90,5 @@ def DrawChartProcess():
     #print(repr(array_from_file))
     #print(array_from_file[2:5])
 
-DrawChartProcess()
+#DrawChartProcess()
 
