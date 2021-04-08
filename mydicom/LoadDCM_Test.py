@@ -6,7 +6,7 @@ import sys, os
 import glob
 
 #path to dcm files
-#inpath = "E:\\Gasar\\test\\dcm\\Gazar*.dcm"
+inpath = "E:\\Gasar\\test\\dcm\\Gazar*.dcm"
 #outpath = "E:\\Gasar\\test\\dcm\\new\\"
 outname = 'out1'
 strPatientName = "gasar"
@@ -64,14 +64,6 @@ def RemoveExtraData(files: pydicom):
         del onefile.SeriesNumber
         del onefile.ImageOrientationPatient
         del onefile.PhotometricInterpretation
-
-   
-# Templodadefiles = LoadFileDCM(inpath)
-# AddSamplePerPixel(Templodadefiles)
-# AddPatientName(Templodadefiles, strPatientName)
-# AddSliceLocation(Templodadefiles)
-# #RemoveExtraData(Templodadefiles)
-# SaveFileDCM(outpath, Templodadefiles)
 
 def ShowDCM(files):
 
@@ -132,3 +124,10 @@ def ShowDCM(files):
 
     plt.show()
 
+   
+Templodadefiles = LoadFileDCM(inpath)
+# AddSamplePerPixel(Templodadefiles)
+# AddPatientName(Templodadefiles, strPatientName)
+# AddSliceLocation(Templodadefiles)
+# #RemoveExtraData(Templodadefiles)
+# SaveFileDCM(outpath, Templodadefiles)
