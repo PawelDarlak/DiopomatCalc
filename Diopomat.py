@@ -3,8 +3,12 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget, QPushButton, QAction, QFileDialog, QStatusBar, QLabel, QVBoxLayout
 from PyQt5.QtCore import QSize    
 from PyQt5.QtGui import QIcon, QWindow
-from mydicom import LoadDCM, LoadData
+from mydicom import LoadDCM, ProcessChart, PoreSize
 from PyQt5.uic import loadUiType
+
+
+boolLoadDCM = False
+filesDCM =[]
 
 
 class MainWindow(QMainWindow):
@@ -39,8 +43,8 @@ class MainWindow(QMainWindow):
         newAction.setStatusTip('New document')
         newAction.triggered.connect(self.newCall)
 
-        # Create new action
-        importAction = QAction(QIcon('open.png'), '&Import', self)        
+        # Create Import action
+        importAction = QAction(QIcon('import.png'), '&Import', self)        
         importAction.setShortcut('Ctrl+I')
         importAction.setStatusTip('Import dcm file')
         importAction.triggered.connect(self.openCall)
@@ -104,7 +108,8 @@ class MainWindow(QMainWindow):
         if fileName:
             print(fileName)
 
-        LoadData.DrawChartProcess()
+        # filesDCM = PoreSize.LoadFileDCM(fileName)
+        PoreSize.ShowDCM(fileName)
 
 
     def newCall(self):
