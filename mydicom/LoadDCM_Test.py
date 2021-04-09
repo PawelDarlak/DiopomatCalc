@@ -122,6 +122,8 @@ def ShowDCM(files):
     plt.imshow(img3d[img_shape[0]//2, :, :].T)
     a3.set_aspect(cor_aspect)
 
+    
+
     plt.show()
 
    

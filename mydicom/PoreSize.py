@@ -26,6 +26,10 @@ def ShowDCM(myfile):
 
     pixelarray = myDCMfile.pixel_array
 
+
+    plt.ion()
+    #plt.show(block=False)
+
     
 
     # grayscale = io.imread(pixelarray, cmap=plt.cm.bone) # ładowanie pliku dcm skanu CT
@@ -98,5 +102,4 @@ def ShowDCM(myfile):
     ax[3].text(10.5, 80, iloscporow)
 
     fig.tight_layout()
-
     plt.show()
