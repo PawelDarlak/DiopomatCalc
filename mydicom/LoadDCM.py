@@ -1,4 +1,3 @@
-# from typing import List
 import pydicom
 import numpy as np
 import matplotlib.pyplot as plt

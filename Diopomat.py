@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget, QPushButton, QAction,
 from PyQt5.QtCore import QSize    
 from PyQt5.QtGui import QIcon, QWindow
 from mydicom import LoadDCM, ProcessChart, PoreSize
-from PyQt5.uic import loadUiType
+# from PyQt5.uic import loadUiType
 
 
 boolLoadDCM = False
