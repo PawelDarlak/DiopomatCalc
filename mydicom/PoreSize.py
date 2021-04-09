@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from skimage import io
 from skimage.color import rgb2gray
 from skimage import filters
-import skimage.feature
 from scipy import ndimage
 import numpy as np
 # import glob
@@ -29,8 +28,6 @@ def ShowDCM(myfile):
 
     plt.ion()
     #plt.show(block=False)
-
-    
 
     # grayscale = io.imread(pixelarray, cmap=plt.cm.bone) # ładowanie pliku dcm skanu CT
     
