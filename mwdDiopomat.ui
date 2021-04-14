@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Okno</string>
+   <string>DiopomatCalc</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -33,27 +33,27 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>160</y>
-      <width>112</width>
-      <height>34</height>
+      <x>500</x>
+      <y>440</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Show</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>210</y>
-      <width>112</width>
-      <height>34</height>
+      <x>60</x>
+      <y>70</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
