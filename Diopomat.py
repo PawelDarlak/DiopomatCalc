@@ -17,9 +17,6 @@ class myWnd(cls, wind):
         self.statusBar.setStyleSheet("background-color: rgb(221, 221, 221);")
         self.statusBar.showMessage("ja")
 
-        #Menu actions
-        self.actionOpen.triggered.connect(self.toggleLabel)
-
     @pyqtSlot()
     def on_pushButton_clicked(self):
         self.label.setText("The toggle state is")
@@ -29,12 +26,12 @@ class myWnd(cls, wind):
     # def on_pushButton_pressed(self):
     #     self.pushButton.hide()
 
-    
-    def toggleLabel(self):
-        self.label.setText("The toggle state is")
-        self.label.adjustSize()
 
-      
+    @pyqtSlot()
+    def on_actionOpen_triggered(self):
+        self.label.setText("Dupa")
+        self.label.adjustSize()
+        print('open')
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

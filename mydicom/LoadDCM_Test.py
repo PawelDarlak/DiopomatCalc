@@ -127,7 +127,7 @@ def ShowDCM(files):
     plt.show()
 
    
-Templodadefiles = LoadFileDCM(inpath)
+# Templodadefiles = LoadFileDCM(inpath)
 # AddSamplePerPixel(Templodadefiles)
 # AddPatientName(Templodadefiles, strPatientName)
 # AddSliceLocation(Templodadefiles)
