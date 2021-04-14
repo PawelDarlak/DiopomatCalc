@@ -8,7 +8,7 @@ from PyQt5.QtCore import pyqtSlot
 cls, wind = uic.loadUiType('E:\Python\DiopomatCalc\mwdDiopomat.ui')
 
 
-class myWnd(cls, wind):
+class myMainWnd(cls, wind):
 
     def __init__(self):
         super().__init__()
@@ -26,7 +26,6 @@ class myWnd(cls, wind):
     # def on_pushButton_pressed(self):
     #     self.pushButton.hide()
 
-
     @pyqtSlot()
     def on_actionOpen_triggered(self):
         self.label.setText("Dupa")
@@ -35,6 +34,6 @@ class myWnd(cls, wind):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    mainWin = myWnd()
+    mainWin = myMainWnd()
     mainWin.show()
     sys.exit(app.exec_())
