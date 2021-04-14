@@ -2,6 +2,7 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
 from PyQt5.QtCore import pyqtSlot
+from PyQt5 import QtCore
 
 
 
@@ -16,6 +17,8 @@ class myMainWnd(cls, wind):
         self.statusBar.setStyleSheet("color : red")
         self.statusBar.setStyleSheet("background-color: rgb(221, 221, 221);")
         self.statusBar.showMessage("ja")
+        self.pushButton.installEventFilter(self)
+ 
 
     @pyqtSlot()
     def on_pushButton_clicked(self):
@@ -31,6 +34,20 @@ class myMainWnd(cls, wind):
         self.label.setText("Dupa")
         self.label.adjustSize()
         print('open')
+
+    def on_pushButton_Entered(self, QEvent):
+        print('mouse')
+
+    def mouseMoveEvent(self, event):
+        print('mouse event')
+        
+    def wheelEvent(self, event):
+        print('mouse wheel')
+
+    # def eventFilter(self, object, event):
+    #     print('even filtr')
+    #     return False
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
