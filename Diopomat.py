@@ -4,10 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
 
-
-
 cls, wind = uic.loadUiType('E:\Python\DiopomatCalc\mwdDiopomat.ui')
-
 
 class myMainWnd(cls, wind):
 
