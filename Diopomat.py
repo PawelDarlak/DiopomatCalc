@@ -1,7 +1,9 @@
+from mydicom.LoadDCM_Test import DCMSlideClass
 import sys
 from PyQt5 import uic #, QtCore
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
 from PyQt5.QtCore import pyqtSlot
+from mydicom import LoadDCM, ProcessChart, PoreSize
 
 
 cls, wind = uic.loadUiType('E:\Python\DiopomatCalc\mwdDiopomat.ui')
@@ -19,6 +21,7 @@ class myMainWnd(cls, wind):
 
     @pyqtSlot()
     def on_pushButton_clicked(self):
+        newobject = DCMSlideClass()
         self.label.setText("The toggle state is")
         self.label.adjustSize()
         print('button')
@@ -34,6 +37,7 @@ class myMainWnd(cls, wind):
 
     def on_pushButton_Entered(self, QEvent):
         print('mouse')
+        
 
     def mouseMoveEvent(self, event):
         print('mouse event')
