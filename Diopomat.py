@@ -1,7 +1,9 @@
+from PyQt5.uic.properties import QtCore
 from mydicom.LoadDCM_Test import DCMSlideClass
 import sys
-from PyQt5 import uic #, QtCore
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+from PyQt5 import uic
+# from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QApplication, QFileDialog
 from PyQt5.QtCore import pyqtSlot
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
@@ -32,10 +34,14 @@ class myMainWnd(cls, wind):
 
     @pyqtSlot()
     def on_actionOpen_triggered(self):
-        self.label.setText("Dupa")
-        self.label.adjustSize()
-        print('open')
-
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
+        if fileName:
+            print(fileName)
+        
+        PoreSize.ShowDCM(fileName)
+    
     def on_pushButton_Entered(self, QEvent):
         print('mouse')
         

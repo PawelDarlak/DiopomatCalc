@@ -1,8 +1,8 @@
-# from typing import List
+# from mydicom.PoreSize import ShowDCM
 import pydicom
 import numpy as np
 import matplotlib.pyplot as plt
-import sys, os
+import os
 import glob
 
 
@@ -98,12 +98,14 @@ class DCMSlideClass():
         a3 = plt.subplot(2, 2, 3)
         plt.imshow(img3d[self.img_shape[0]//2, :, :].T)
         a3.set_aspect(cor_aspect)
+        
         plt.show()
+        
+
 
     def nic(self):
         pass
     
-
 
 # SaveFileDCM(outpath, Templodadefiles)
 # #RemoveExtraData(Templodadefiles)

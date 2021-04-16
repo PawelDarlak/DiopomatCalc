@@ -1,6 +1,6 @@
 import pydicom
 import matplotlib.pyplot as plt
-from skimage import io
+# from skimage import io
 from skimage.color import rgb2gray
 from skimage import filters
 from scipy import ndimage
@@ -27,7 +27,7 @@ def ShowDCM(myfile):
 
 
     plt.ion()
-    #plt.show(block=False)
+    # plt.show(block=False)
 
     # grayscale = io.imread(pixelarray, cmap=plt.cm.bone) # ładowanie pliku dcm skanu CT
     
@@ -98,5 +98,5 @@ def ShowDCM(myfile):
     iloscporow = "Całkowita ilość porów = " + str(n_labels)
     ax[3].text(10.5, 80, iloscporow)
 
-    fig.tight_layout()
-    plt.show()
+    # fig.tight_layout()
+    plt.draw()
