@@ -99,6 +99,9 @@ class DCMSlideClass():
         plt.imshow(img3d[self.img_shape[0]//2, :, :].T)
         a3.set_aspect(cor_aspect)
         plt.show()
+
+    def nic(self):
+        pass
     
 
 

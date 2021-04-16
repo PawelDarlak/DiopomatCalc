@@ -21,7 +21,8 @@ class myMainWnd(cls, wind):
 
     @pyqtSlot()
     def on_pushButton_clicked(self):
-        newobject = DCMSlideClass()
+        me = DCMSlideClass()
+        me.nic()
         self.label.setText("The toggle state is")
         self.label.adjustSize()
         print('button')
