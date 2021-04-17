@@ -1,8 +1,7 @@
-from PyQt5.uic.properties import QtCore
+# from PyQt5.uic.properties import QtCore
 from mydicom.LoadDCM_Test import DCMSlideClass
 import sys
 from PyQt5 import uic
-# from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication, QFileDialog
 from PyQt5.QtCore import pyqtSlot
 from mydicom import LoadDCM, ProcessChart, PoreSize
