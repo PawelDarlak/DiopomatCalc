@@ -65,7 +65,7 @@ if __name__ == "__main__":
     mainWin.show()
     sys.exit(app.exec_())
 
-#old program here
+#old program here neocat
 
     
 
