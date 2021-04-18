@@ -38,8 +38,11 @@ class myMainWnd(cls, wind):
         fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
         if fileName:
             print(fileName)
-        
-        PoreSize.ShowDCM(fileName)
+    
+        try:
+            PoreSize.ShowDCM(fileName)
+        except:
+            print('no select file')
     
     def on_pushButton_Entered(self, QEvent):
         print('mouse')
