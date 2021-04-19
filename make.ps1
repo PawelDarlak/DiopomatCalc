@@ -1,1 +1,1 @@
-pyinstaller --clean --hiddenimport skimage.filters.rank.core_cy_3d Diopomat.py
+pyinstaller --noconfirm --clean --hiddenimport skimage.filters.rank.core_cy_3d Diopomat.py
