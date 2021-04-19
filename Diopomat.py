@@ -34,7 +34,7 @@ class myMainWnd(cls, wind):
     @pyqtSlot()
     def on_actionOpen_triggered(self):
         options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
+        # options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
         if fileName:
             print(fileName)
