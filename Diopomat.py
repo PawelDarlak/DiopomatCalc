@@ -65,10 +65,6 @@ if __name__ == "__main__":
     mainWin.show()
     sys.exit(app.exec_())
 
-#old program here neocat
-
-    
-
 # import sys
 # from PyQt5 import QtCore, QtWidgets
 # from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget, QPushButton, QAction, QFileDialog, QStatusBar, QLabel, QVBoxLayout
