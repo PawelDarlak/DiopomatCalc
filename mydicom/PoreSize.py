@@ -1,11 +1,22 @@
+from pydicom.errors import InvalidDicomError
 import pydicom
 import matplotlib.pyplot as plt
-# from skimage import io
 from skimage.color import rgb2gray
 from skimage import filters
 from scipy import ndimage
 import numpy as np
-# import glob
+from matplotlib.offsetbox import AnchoredText
+import porespy as ps
+
+
+size= 16
+params = {'legend.fontsize': 'large',
+          'figure.figsize': (20,8),
+          'axes.labelsize': size,
+          'axes.titlesize': size,
+          'xtick.labelsize': size*0.9,
+          'ytick.labelsize': size*0.9,
+          'axes.titlepad': 25}
 
 
 def LoadFileDCM(inpath: str):
@@ -18,13 +29,22 @@ def LoadFileDCM(inpath: str):
 
 def ShowDCM(myfile):
 
-    myDCMfile = pydicom.read_file(myfile)
-    
+    try:
+        myDCMfile = pydicom.read_file(myfile)
+    except InvalidDicomError:
+        print("File is missing DICOM File Meta Information")
+        return False
+    except ValueError:
+        print('no select file')
+        return False
+
     if 'SamplesPerPixel' not in myDCMfile:
         myDCMfile.SamplesPerPixel = 1
 
     pixelarray = myDCMfile.pixel_array
 
+    im = ps.filters.prune_branches(pixelarray)
+    my_porosity = ps.metrics.porosity(im = im)
 
     plt.ion()
     # plt.show(block=False)
@@ -39,32 +59,7 @@ def ShowDCM(myfile):
     val = filters.threshold_otsu(grayscale) 
     mask = grayscale < val # binaryzacja zdjęcia 0,1
 
-    fig, axes = plt.subplots(2, 2, figsize=(12, 12))
-    ax = axes.ravel()
-
-    ax[0].imshow(grayscale, cmap=plt.cm.gray)
-    ax[0].set_title('Przegrój gazaru - zdjęcie oryginalne')
-    ax[0].set_xlabel("Piksel, x")
-    ax[0].set_ylabel("Piksel, y")
-
-    ax[1].imshow(mask, cmap=plt.cm.gray)
-    ax[1].set_title('Przegrój gazaru - zdjęcie binarne') 
-    ax[1].set_xlabel("Piksel, x")
-    ax[1].set_ylabel("Piksel, y")
-
-    ax[2].set_title('Przegrój gazaru - zdjęcie binarne') 
-    ax[2].set_xlabel("Piksel, x")
-    ax[2].set_ylabel("Piksel, y")
-    #ax[2].text(0.5, 0.5, "monospace")
-
-    #ax[3].text(0.5, 0.5, "monospace")
-
-  
-    print("Hello from a function")
-
-
     # Generate the structuring element for the morphological operation that follows
-    
     s = ndimage.morphology.generate_binary_structure(2,1)  
 
     # Label the pores 
@@ -87,16 +82,58 @@ def ShowDCM(myfile):
     x = 0.5*(bin_edges[:-1] + bin_edges[1:])*px**2
 
     # bar width in the histogram bar plot
-    width=x[2]-x[1]  
+    width=x[2]-x[1]
 
-    #Bar plot
-    with plt.style.context(('bmh')):    
-        plt.bar(x,hh, width, color='r')
-        plt.xlabel('Powierzhnia porów (mm$^{2}$)')
-        plt.ylabel('Ilość porów')
+    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+    ax = axes.ravel()
 
-    iloscporow = "Całkowita ilość porów = " + str(n_labels)
-    ax[3].text(10.5, 80, iloscporow)
+
+
+    ax[0].tick_params(labelsize=12)
+    ax[0].imshow(grayscale, cmap=plt.cm.gray)
+    ax[0].set_title('Przegrój gazaru - zdjęcie oryginalne')
+    ax[0].set_xlabel("Piksel, x", fontsize = 16)
+    ax[0].set_ylabel("Piksel, y", fontsize = 16)
+    # ax[0].set_yticklabels(fontsize=16)
+
+    # ax[1].imshow(mask, cmap=plt.cm.gray)
+    # ax[1].set_title('Przegrój gazaru - zdjęcie binarne') 
+    # ax[1].set_xlabel("Piksel, x")
+    # ax[1].set_ylabel("Piksel, y")
+
+    ax[1].set_title('Rozkład wielości porów') 
+    # ax[1].set_xlabel("Powierzchnia, x")
+    # ax[1].set_ylabel("Piksel, y")
+    # # ax[1].text(0.5, 0.5, "monospace")
+
+    # #ax[3].text(0.5, 0.5, "monospace")
+
+  
+    print("Hello from a function")  
+
+    ax[1].bar(x, hh, width, color='r')
+    
+
+
+
+    # #Bar plot
+    # with plt.style.context(('bmh')):   
+    #     plt.tick_params(labelsize=12) 
+    #     plt.bar(x,hh, width, color='r')
+    #     plt.xlabel('Powierzhnia porów (mm$^{2}$)', fontsize = 16)
+    #     plt.ylabel('Ilość porów', fontsize = 16)
+
+    # iloscporow = "Całkowita ilość porów = " + str(n_labels)
+
+    
+    # at = AnchoredText(iloscporow,
+    #               prop=dict(size=12), frameon=True,
+    #               loc='upper right',
+    #               )
+    # at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
+    # ax[1].add_artist(at)
+
+    # ax[1].text(2, 2, iloscporow)
 
     # fig.tight_layout()
     plt.draw()

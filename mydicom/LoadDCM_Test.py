@@ -8,7 +8,17 @@ import glob
 
 class DCMSlideClass():
 
-     #path to dcm files
+    """Exception that is raised when the the file does not appear to be DICOM.
+
+    Usually raised when the "DICM" prefix is not present at position 128 in
+    the file.
+
+    To force reading the file (because maybe it is a DICOM file without
+    a header), use ``dcmread(..., force=True)``.
+    """
+
+    #path to dcm files
+    
     inpath = "E:\\Gasar\\test\\dcm\\Gazar*.dcm"
     #outpath = "E:\\Gasar\\test\\dcm\\new\\"
     outname = 'out1'

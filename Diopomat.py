@@ -1,11 +1,9 @@
-# from PyQt5.uic.properties import QtCore
 from mydicom.LoadDCM_Test import DCMSlideClass
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QFileDialog
 from PyQt5.QtCore import pyqtSlot
 from mydicom import LoadDCM, ProcessChart, PoreSize
-
 
 cls, wind = uic.loadUiType('E:\Python\DiopomatCalc\mwdDiopomat.ui')
 
@@ -36,14 +34,9 @@ class myMainWnd(cls, wind):
         options = QFileDialog.Options()
         # options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
-        if fileName:
-            print(fileName)
-    
-        try:
-            PoreSize.ShowDCM(fileName)
-        except:
-            print('no select file')
-    
+
+        PoreSize.ShowDCM(fileName)
+        
     def on_pushButton_Entered(self, QEvent):
         print('mouse')
         
