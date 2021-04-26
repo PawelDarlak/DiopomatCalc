@@ -123,10 +123,10 @@ def ShowDCM(myfile):
         ax[1].set_title('Rozkład wielkości porów', fontsize = 14) 
 
     #Powierzchnia maksymalna poru
-    pow_max = round(sizes.max() * px * 0.1, 2)
-    pow_min = round(sizes.min() * px * 0.1, 2)
+    pow_max = round(sizes.max() * px * 0.1, 3)
+    pow_min = round(sizes.min() * px * 0.1, 3)
 
-    Legenda = f"Całkowita ilość porów = {str(n_labels)} \n" + f"Powierzchnia min. pora: {str(pow_min)}, mm$^{2}$"
+    Legenda = f"Całkowita ilość porów = {str(n_labels)} \n" + f"Powierzchnia min. pora: {str(pow_min)}mm$^{2}$"
 
     at = AnchoredText(Legenda,
                   prop=dict(size=12), frameon=True,
