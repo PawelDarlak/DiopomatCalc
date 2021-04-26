@@ -85,7 +85,8 @@ def ShowDCM(myfile):
     # bar width in the histogram bar plot
     width=x[2]-x[1]
 
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+    fig, axes = plt.subplots(1, 2, figsize=(14, 7))
+   
     fig.canvas.manager.set_window_title('Porosity distribution')
     plt.get_current_fig_manager().window.setWindowIcon(QIcon('icon.png'))
     ax = axes.ravel()
@@ -150,5 +151,5 @@ def ShowDCM(myfile):
 
     # ax[1].text(2, 2, iloscporow)
 
-    # fig.tight_layout()
+    fig.tight_layout()
     plt.draw()
