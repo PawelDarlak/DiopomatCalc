@@ -90,7 +90,7 @@ def ShowDCM(myfile):
     
     ax = axes.ravel()
     ax[0].tick_params(labelsize=12)
-    ax[0].imshow(grayscale, cmap=plt.cm.gray)
+    ax[0].imshow(mask, cmap=plt.cm.gray)
     ax[0].set_title('Przekrój poprzeczny gazaru - CT', fontsize = 14)
     ax[0].set_xlabel("Oś x, px", fontsize = 16)
     ax[0].set_ylabel("Oś y, px", fontsize = 16)
