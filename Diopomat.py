@@ -1,8 +1,7 @@
-from mydicom.LoadDCM_Test import DCMSlideClass
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog, QDialogButtonBox, QLabel, QVBoxLayout
-from PyQt5.QtCore import pyqtSlot, QSize
+from PyQt5.QtCore import pyqtSlot 
 from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
@@ -41,8 +40,8 @@ class myMainWnd(cls, wind):
 
     @pyqtSlot()
     def on_pushButton_clicked(self):
-        me = DCMSlideClass()
-        me.nic()
+        # me = DCMSlideClass()
+        # me.nic()
         self.label.setText("The toggle state is")
         self.label.adjustSize()
         print('button')

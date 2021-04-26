@@ -6,7 +6,6 @@ from skimage import filters
 from scipy import ndimage
 import numpy as np
 from matplotlib.offsetbox import AnchoredText
-# import porespy as ps
 from PyQt5.QtGui import QIcon
 
 size= 16
@@ -89,10 +88,8 @@ def ShowDCM(myfile):
    
     fig.canvas.manager.set_window_title('Porosity distribution')
     plt.get_current_fig_manager().window.setWindowIcon(QIcon('icon.png'))
+    
     ax = axes.ravel()
-
-
-
     ax[0].tick_params(labelsize=12)
     ax[0].imshow(grayscale, cmap=plt.cm.gray)
     ax[0].set_title('Przekrój poprzeczny gazaru - CT', fontsize = 14)
@@ -130,7 +127,7 @@ def ShowDCM(myfile):
     MinPors = f"Powierzchnia min. 1 pora: {str(pow_min)}mm$^{2}$ \n"
     MaxPors = f"Powierzchnia max. 1 pora: {str(pow_max)}mm$^{2}$"
     Legenda = TotalPors + MinPors + MaxPors
-    
+
     at = AnchoredText(Legenda,
                   prop=dict(size=12), frameon=True,
                   loc='upper right',

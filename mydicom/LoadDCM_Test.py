@@ -8,13 +8,7 @@ import glob
 
 class DCMSlideClass():
 
-    """Exception that is raised when the the file does not appear to be DICOM.
-
-    Usually raised when the "DICM" prefix is not present at position 128 in
-    the file.
-
-    To force reading the file (because maybe it is a DICOM file without
-    a header), use ``dcmread(..., force=True)``.
+    """Klasa do przeglądania zdjęć DICOM
     """
 
     #path to dcm files
