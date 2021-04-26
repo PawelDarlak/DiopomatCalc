@@ -1,6 +1,6 @@
 import pydicom
 import matplotlib.pyplot as plt
-from skimage.color import rgb2gray
+# from skimage.color import rgb2gray
 from skimage import filters
 from scipy import ndimage
 import numpy as np
@@ -48,10 +48,11 @@ def ShowDCM(myfile):
 
     # grayscale = io.imread(pixelarray, cmap=plt.cm.bone) # ładowanie pliku dcm skanu CT
     
-    grayscale = rgb2gray(pixelarray) # konwersja na grayscale 
+    # grayscale = rgb2gray(pixelarray) # konwersja na grayscale 
 
-    grayscale = grayscale.astype('float64') # rzutowanie za uint8 na float64
-    grayscale *= (1.0/grayscale.max()) # normalizacja do zakresu 0...1
+    grayscale = pixelarray.astype('float64') # rzutowanie za uint8 na float64
+    
+    grayscale *= (1.0/pixelarray.max()) # normalizacja do zakresu 0...1
 
     val = filters.threshold_otsu(grayscale) 
     mask = grayscale < val # binaryzacja zdjęcia 0,1
