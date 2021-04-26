@@ -16,7 +16,7 @@ params = {'legend.fontsize': 'large',
           'ytick.labelsize': size*0.9,
           'axes.titlepad': 25}
 
-def LoadFileDCM(inpath: str):
+def LoadFileDCM(inpath: str) -> None:
     
     myDCMfile = pydicom.dcmread(inpath)
     if 'SamplesPerPixel' not in myDCMfile:
