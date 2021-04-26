@@ -7,6 +7,7 @@ from scipy import ndimage
 import numpy as np
 from matplotlib.offsetbox import AnchoredText
 # import porespy as ps
+from PyQt5.QtGui import QIcon
 
 size= 16
 params = {'legend.fontsize': 'large',
@@ -45,6 +46,7 @@ def ShowDCM(myfile):
     # my_porosity = ps.metrics.porosity(im = im)
 
     plt.ion()
+
     # plt.show(block=False)
 
     # grayscale = io.imread(pixelarray, cmap=plt.cm.bone) # ładowanie pliku dcm skanu CT
@@ -74,6 +76,7 @@ def ShowDCM(myfile):
 
     # Calculate the histogram
     hh, bin_edges = np.histogram(sizes, range = rg, bins = nbins)
+    
     # set the abscissa in the middle of the bin
     px = 0.1022 # Pixel size, mm
 
@@ -83,13 +86,17 @@ def ShowDCM(myfile):
     width=x[2]-x[1]
 
     fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+    fig.canvas.manager.set_window_title('Porosity distribution')
+    plt.get_current_fig_manager().window.setWindowIcon(QIcon('icon.png'))
     ax = axes.ravel()
 
-
+    #Powierzchnia maksymalna poru
+    pow_max = sizes.max() * px * 0.1
+    pow_min = sizes.min() * px * 0.1
 
     ax[0].tick_params(labelsize=12)
     ax[0].imshow(grayscale, cmap=plt.cm.gray)
-    ax[0].set_title('Przegrój gazaru - zdjęcie oryginalne')
+    ax[0].set_title('Przegrój gazaru - zdjęcie oryginalne', fontsize = 14)
     ax[0].set_xlabel("Piksel, x", fontsize = 16)
     ax[0].set_ylabel("Piksel, y", fontsize = 16)
     # ax[0].set_yticklabels(fontsize=16)
@@ -112,9 +119,9 @@ def ShowDCM(myfile):
     with plt.style.context(('bmh')): 
         ax[1].bar(x, hh, width, color='r')
         ax[1].tick_params(labelsize=12) 
-        ax[1].set_xlabel('Powierzhnia porów (mm$^{2}$)', fontsize = 16)
+        ax[1].set_xlabel('Powierzchnia porów, mm$^{2}$', fontsize = 16)
         ax[1].set_ylabel('Ilość porów', fontsize = 16)
-        ax[1].set_title('Rozkład wielkości porów') 
+        ax[1].set_title('Rozkład wielkości porów', fontsize = 14) 
 
     iloscporow = "Całkowita ilość porów = " + str(n_labels)
     at = AnchoredText(iloscporow,
