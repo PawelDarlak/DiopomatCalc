@@ -35,7 +35,7 @@ class myMainWnd(cls, wind):
         self.setupUi(self)
         self.statusBar.setStyleSheet("color : red")
         self.statusBar.setStyleSheet("background-color: rgb(221, 221, 221);")
-        self.statusBar.showMessage("ja")
+        self.statusBar.showMessage("Diopomat: 1.01")
         self.pushButton.installEventFilter(self)
  
 

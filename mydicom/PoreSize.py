@@ -33,7 +33,7 @@ def ShowDCM(myfile):
     except InvalidDicomError:
         print("File is missing DICOM File Meta Information")
         return False
-    except ValueError:
+    except:
         print('no select file')
         return False
 
@@ -45,9 +45,8 @@ def ShowDCM(myfile):
     # im = ps.filters.prune_branches(pixelarray)
     # my_porosity = ps.metrics.porosity(im = im)
 
-    plt.ion()
 
-    # plt.show(block=False)
+    # plt.show(block= True)
 
     # grayscale = io.imread(pixelarray, cmap=plt.cm.bone) # ładowanie pliku dcm skanu CT
     
@@ -85,19 +84,18 @@ def ShowDCM(myfile):
     # bar width in the histogram bar plot
     width=x[2]-x[1]
 
+    plt.ion()
     fig, axes = plt.subplots(1, 2, figsize=(14, 7))
    
     fig.canvas.manager.set_window_title('Porosity distribution')
     plt.get_current_fig_manager().window.setWindowIcon(QIcon('icon.png'))
     ax = axes.ravel()
 
-    #Powierzchnia maksymalna poru
-    pow_max = sizes.max() * px * 0.1
-    pow_min = sizes.min() * px * 0.1
+
 
     ax[0].tick_params(labelsize=12)
     ax[0].imshow(grayscale, cmap=plt.cm.gray)
-    ax[0].set_title('Przegrój gazaru - zdjęcie oryginalne', fontsize = 14)
+    ax[0].set_title('Przekrój poprzeczny gazaru - CT', fontsize = 14)
     ax[0].set_xlabel("Piksel, x", fontsize = 16)
     ax[0].set_ylabel("Piksel, y", fontsize = 16)
     # ax[0].set_yticklabels(fontsize=16)
@@ -124,8 +122,13 @@ def ShowDCM(myfile):
         ax[1].set_ylabel('Ilość porów', fontsize = 16)
         ax[1].set_title('Rozkład wielkości porów', fontsize = 14) 
 
-    iloscporow = "Całkowita ilość porów = " + str(n_labels)
-    at = AnchoredText(iloscporow,
+    #Powierzchnia maksymalna poru
+    pow_max = round(sizes.max() * px * 0.1, 2)
+    pow_min = round(sizes.min() * px * 0.1, 2)
+
+    Legenda = f"Całkowita ilość porów = {str(n_labels)} \n" + f"Powierzchnia min. pora: {str(pow_min)}, mm$^{2}$"
+
+    at = AnchoredText(Legenda,
                   prop=dict(size=12), frameon=True,
                   loc='upper right',
                   )
@@ -151,5 +154,7 @@ def ShowDCM(myfile):
 
     # ax[1].text(2, 2, iloscporow)
 
+    
     fig.tight_layout()
     plt.draw()
+    plt.show()
