@@ -1,4 +1,3 @@
-from pydicom.errors import InvalidDicomError
 import pydicom
 import matplotlib.pyplot as plt
 from skimage.color import rgb2gray
@@ -6,7 +5,7 @@ from skimage import filters
 from scipy import ndimage
 import numpy as np
 from matplotlib.offsetbox import AnchoredText
-from PyQt5.QtGui import QIcon
+from pydicom.errors import InvalidDicomError
 
 size= 16
 params = {'legend.fontsize': 'large',
@@ -87,7 +86,7 @@ def ShowDCM(myfile):
     fig, axes = plt.subplots(1, 2, figsize=(14, 7))
    
     fig.canvas.manager.set_window_title('Porosity distribution')
-    plt.get_current_fig_manager().window.setWindowIcon(QIcon('icon.png'))
+    # plt.get_current_fig_manager().window.setWindowIcon(QIcon('icon.png'))
     
     ax = axes.ravel()
     ax[0].tick_params(labelsize=12)

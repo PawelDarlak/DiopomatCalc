@@ -13,9 +13,7 @@ class CustomDialog(QDialog):
         super().__init__(parent=parent)
 
         self.setWindowTitle("DioPomat !")
-
         QBtn = QDialogButtonBox.Close
-
         self.buttonBox = QDialogButtonBox(QBtn)
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
@@ -36,6 +34,7 @@ class myMainWnd(cls, wind):
         self.statusBar.setStyleSheet("background-color: rgb(221, 221, 221);")
         self.statusBar.showMessage("Diopomat: 1.01")
         self.pushButton.installEventFilter(self)
+        
  
 
     @pyqtSlot()
@@ -79,7 +78,9 @@ class myMainWnd(cls, wind):
 
 
 if __name__ == "__main__":
+    print('Program się uruchamia..')
     app = QApplication(sys.argv)
+    print('Jeszcze chwilkę..')
     mainWin = myMainWnd()
     mainWin.show()
     sys.exit(app.exec_())
