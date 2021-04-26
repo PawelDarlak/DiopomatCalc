@@ -56,7 +56,7 @@ def ShowDCM(myfile):
     val = filters.threshold_otsu(grayscale) 
     mask = grayscale < val # binaryzacja zdjęcia 0,1
 
-    # Generate the structuring element for the morphological operation that follows
+        # Generate the structuring element for the morphological operation that follows
     s = ndimage.morphology.generate_binary_structure(2,1)  
 
     # Label the pores 
@@ -153,7 +153,9 @@ def ShowDCM(myfile):
 
     # ax[1].text(2, 2, iloscporow)
 
-    
+  
+    print('Zaraz będzie wykres...')
+
     fig.tight_layout()
-    plt.draw()
+    # plt.draw()
     plt.show()

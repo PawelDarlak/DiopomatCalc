@@ -78,9 +78,7 @@ class myMainWnd(cls, wind):
 
 
 if __name__ == "__main__":
-    print('Program się uruchamia..')
     app = QApplication(sys.argv)
-    print('Jeszcze chwilkę..')
     mainWin = myMainWnd()
     mainWin.show()
     sys.exit(app.exec_())
