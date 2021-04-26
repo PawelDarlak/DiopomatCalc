@@ -1,4 +1,3 @@
-# from mydicom.PoreSize import ShowDCM
 import pydicom
 import numpy as np
 import matplotlib.pyplot as plt
