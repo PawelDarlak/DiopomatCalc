@@ -126,8 +126,11 @@ def ShowDCM(myfile):
     pow_max = round(sizes.max() * px * 0.1, 3)
     pow_min = round(sizes.min() * px * 0.1, 3)
 
-    Legenda = f"Całkowita ilość porów = {str(n_labels)} \n" + f"Powierzchnia min. pora: {str(pow_min)}mm$^{2}$"
-
+    TotalPors = f"Całkowita ilość porów = {str(n_labels)} \n"
+    MinPors = f"Powierzchnia min. 1 pora: {str(pow_min)}mm$^{2}$ \n"
+    MaxPors = f"Powierzchnia max. 1 pora: {str(pow_max)}mm$^{2}$"
+    Legenda = TotalPors + MinPors + MaxPors
+    
     at = AnchoredText(Legenda,
                   prop=dict(size=12), frameon=True,
                   loc='upper right',
