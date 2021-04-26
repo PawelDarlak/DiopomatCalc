@@ -1,11 +1,32 @@
 from mydicom.LoadDCM_Test import DCMSlideClass
 import sys
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QFileDialog
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog, QDialogButtonBox, QLabel, QVBoxLayout
+from PyQt5.QtCore import pyqtSlot, QSize
+from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
 cls, wind = uic.loadUiType('E:\Python\DiopomatCalc\mwdDiopomat.ui')
+
+
+class CustomDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        self.setWindowTitle("DioPomat !")
+
+        QBtn = QDialogButtonBox.Close
+
+        self.buttonBox = QDialogButtonBox(QBtn)
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
+
+        self.layout = QVBoxLayout()
+        message = QLabel("Something happened, is that OK?")
+        self.layout.addWidget(message)
+        self.layout.addWidget(self.buttonBox)
+        self.setLayout(self.layout)
+        self.setWindowIcon(QIcon('icon.png'))
 
 class myMainWnd(cls, wind):
 
@@ -25,6 +46,12 @@ class myMainWnd(cls, wind):
         self.label.setText("The toggle state is")
         self.label.adjustSize()
         print('button')
+
+        dlg = CustomDialog()  # If you pass self, the dialog will be centered over the main window as before.
+        if dlg.exec_():
+            print("Success!")
+        else:
+            print("Cancel!")
     
     # def on_pushButton_pressed(self):
     #     self.pushButton.hide()

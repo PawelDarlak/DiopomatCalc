@@ -6,8 +6,7 @@ from skimage import filters
 from scipy import ndimage
 import numpy as np
 from matplotlib.offsetbox import AnchoredText
-import porespy as ps
-
+# import porespy as ps
 
 size= 16
 params = {'legend.fontsize': 'large',
@@ -17,7 +16,6 @@ params = {'legend.fontsize': 'large',
           'xtick.labelsize': size*0.9,
           'ytick.labelsize': size*0.9,
           'axes.titlepad': 25}
-
 
 def LoadFileDCM(inpath: str):
     
@@ -43,8 +41,8 @@ def ShowDCM(myfile):
 
     pixelarray = myDCMfile.pixel_array
 
-    im = ps.filters.prune_branches(pixelarray)
-    my_porosity = ps.metrics.porosity(im = im)
+    # im = ps.filters.prune_branches(pixelarray)
+    # my_porosity = ps.metrics.porosity(im = im)
 
     plt.ion()
     # plt.show(block=False)
@@ -101,7 +99,7 @@ def ShowDCM(myfile):
     # ax[1].set_xlabel("Piksel, x")
     # ax[1].set_ylabel("Piksel, y")
 
-    ax[1].set_title('Rozkład wielości porów') 
+   
     # ax[1].set_xlabel("Powierzchnia, x")
     # ax[1].set_ylabel("Piksel, y")
     # # ax[1].text(0.5, 0.5, "monospace")
@@ -111,10 +109,20 @@ def ShowDCM(myfile):
   
     print("Hello from a function")  
 
-    ax[1].bar(x, hh, width, color='r')
-    
+    with plt.style.context(('bmh')): 
+        ax[1].bar(x, hh, width, color='r')
+        ax[1].tick_params(labelsize=12) 
+        ax[1].set_xlabel('Powierzhnia porów (mm$^{2}$)', fontsize = 16)
+        ax[1].set_ylabel('Ilość porów', fontsize = 16)
+        ax[1].set_title('Rozkład wielkości porów') 
 
-
+    iloscporow = "Całkowita ilość porów = " + str(n_labels)
+    at = AnchoredText(iloscporow,
+                  prop=dict(size=12), frameon=True,
+                  loc='upper right',
+                  )
+    at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
+    ax[1].add_artist(at)
 
     # #Bar plot
     # with plt.style.context(('bmh')):   

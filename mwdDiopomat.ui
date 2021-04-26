@@ -9,20 +9,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>500</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>200</width>
-    <height>200</height>
+    <width>400</width>
+    <height>300</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>500</width>
-    <height>500</height>
+    <width>400</width>
+    <height>300</height>
    </size>
   </property>
   <property name="mouseTracking">
@@ -51,10 +51,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>80</y>
-      <width>91</width>
-      <height>31</height>
+      <x>300</x>
+      <y>220</y>
+      <width>75</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="text">
@@ -64,10 +64,10 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>70</y>
-      <width>91</width>
-      <height>31</height>
+      <x>300</x>
+      <y>10</y>
+      <width>47</width>
+      <height>13</height>
      </rect>
     </property>
     <property name="text">
@@ -80,8 +80,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>500</width>
-     <height>22</height>
+     <width>400</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -90,12 +90,18 @@
     </property>
     <addaction name="actionOpen"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
    <property name="text">
-    <string>Open</string>
+    <string>Import DICOM</string>
    </property>
   </action>
  </widget>
