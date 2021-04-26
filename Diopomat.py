@@ -57,7 +57,7 @@ class myMainWnd(cls, wind):
     #     self.pushButton.hide()
 
     @pyqtSlot()
-    def on_actionOpen_triggered(self):
+    def on_actionImport_triggered(self):
         options = QFileDialog.Options()
         # options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
