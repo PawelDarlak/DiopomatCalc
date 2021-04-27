@@ -5,7 +5,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
-cls, wind = uic.loadUiType('E:\Python\DiopomatCalc\mwdDiopomat.ui')
+cls, wind = uic.loadUiType('mwdDiopomat.ui')
 
 
 class CustomDialog(QDialog):
@@ -17,7 +17,6 @@ class CustomDialog(QDialog):
         self.buttonBox = QDialogButtonBox(QBtn)
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
-
         self.layout = QVBoxLayout()
         message = QLabel("Something happened, is that OK?")
         self.layout.addWidget(message)

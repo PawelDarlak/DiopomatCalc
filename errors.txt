@@ -12,3 +12,6 @@ ImportError: DLL load failed while importing _rolling_ball_cy: The specified mod
     # Allow pythonNN.dll, pythoncomNN.dll, pywintypesNN.dll
     r'py(?:thon(?:com(?:loader)?)?|wintypes)\d+\.dll',
 
+
+    ('mwdDiopomat.ui', '.')
+
