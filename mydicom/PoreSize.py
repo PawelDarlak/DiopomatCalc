@@ -1,6 +1,5 @@
 import pydicom
 import matplotlib.pyplot as plt
-# from skimage.color import rgb2gray
 from skimage import filters
 from scipy import ndimage
 import numpy as np
