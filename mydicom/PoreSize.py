@@ -8,12 +8,12 @@ from pydicom.errors import InvalidDicomError
 
 size= 16
 params = {'legend.fontsize': 'large',
-          'figure.figsize': (20,8),
-          'axes.labelsize': size,
-          'axes.titlesize': size,
-          'xtick.labelsize': size*0.9,
-          'ytick.labelsize': size*0.9,
-          'axes.titlepad': 25}
+        'figure.figsize': (20,8),
+        'axes.labelsize': size,
+        'axes.titlesize': size,
+        'xtick.labelsize': size*0.9,
+        'ytick.labelsize': size*0.9,
+        'axes.titlepad': 25}
 
 def LoadFileDCM(inpath: str) -> None:
     
