@@ -30,7 +30,7 @@ def ShowDCM(myfile):
     except InvalidDicomError:
         print("File is missing DICOM File Meta Information")
         return False
-    except:
+    except Exception:
         print('no select file')
         return False
 
