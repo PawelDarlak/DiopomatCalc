@@ -1,1 +1,1 @@
-pyinstaller --add-data="mwdDiopomat.ui;." --onefile --noconfirm --clean --hidden-import "skimage.filters.rank.core_cy_3d" Diopomat.py
+pyinstaller --onefile --noconfirm --clean --add-data="mwdDiopomat.ui;." --icon=icon.ico --hidden-import "skimage.filters.rank.core_cy_3d" Diopomat.py

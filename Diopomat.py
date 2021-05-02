@@ -1,17 +1,24 @@
-import sys
-from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog, QDialogButtonBox, QLabel, QVBoxLayout
+import sys, os
+from PyQt5 import QtCore, uic
+from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog, QDialogButtonBox, QLabel, QVBoxLayout, QMainWindow
 from PyQt5.QtCore import pyqtSlot 
 from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
-cls, wind = uic.loadUiType('mwdDiopomat.ui')
 
+# Define function to import external files when using PyInstaller.
+def resource_path(relative_path):
+# Get absolute path to resource, works for dev and for PyInstaller
+    try:
+    # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class CustomDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
-
         self.setWindowTitle("DioPomat !")
         QBtn = QDialogButtonBox.Close
         self.buttonBox = QDialogButtonBox(QBtn)
@@ -22,18 +29,23 @@ class CustomDialog(QDialog):
         self.layout.addWidget(message)
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
-        self.setWindowIcon(QIcon('icon.png'))
+        # self.setWindowIcon(QIcon('icon.ico'))
 
-class myMainWnd(cls, wind):
+class myMainWnd(QMainWindow):
 
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
+    def __init__(self, *args, **kwargs):
+        super(myMainWnd, self).__init__(*args, **kwargs)
+        path = resource_path("mwdDiopomat.ui")
+        fileh = QtCore.QFile(path)
+        fileh.open(QtCore.QFile.ReadOnly)
+        uic.loadUi(fileh, self)
+        fileh.close()
+        
+        path = resource_path('icon.png')
+        self.setWindowIcon(QIcon(path))
         self.statusBar.setStyleSheet("color : red")
         self.statusBar.setStyleSheet("background-color: rgb(221, 221, 221);")
         self.statusBar.showMessage("Diopomat: 1.01")
-        self.pushButton.installEventFilter(self)
-        
  
 
     @pyqtSlot()
@@ -74,6 +86,7 @@ class myMainWnd(cls, wind):
     # def eventFilter(self, object, event):
     #     print('even filtr')
     #     return False
+
 
 
 if __name__ == "__main__":

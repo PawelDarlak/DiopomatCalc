@@ -7,7 +7,7 @@ block_cipher = None
 a = Analysis(['Diopomat.py'],
              pathex=['E:\\Python\\DiopomatCalc'],
              binaries=[],
-             datas=[],
+             datas=[('mwdDiopomat.ui', '.'), ('icon.png', '.')],
              hiddenimports=['skimage.filters.rank.core_cy_3d'],
              hookspath=[],
              runtime_hooks=[],
@@ -31,4 +31,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=True )
+          console=True , icon='icon.ico')
