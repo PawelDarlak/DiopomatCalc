@@ -71,6 +71,15 @@ class myMainWnd(QMainWindow):
         fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
 
         PoreSize.ShowDCM(fileName)
+
+
+    @pyqtSlot()
+    def on_actionImport_data_triggered(self):
+        options = QFileDialog.Options()
+        # options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Image DICOM (*.dcm)", options=options)
+
+        PoreSize.ShowDCM(fileName)
         
     def on_pushButton_Entered(self, QEvent):
         print('mouse')

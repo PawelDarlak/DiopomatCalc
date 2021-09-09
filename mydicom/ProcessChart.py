@@ -43,7 +43,7 @@ def DrawChartProcess():
     # print(array_from_file)
     # Show the plot
     
-    # ax = plt.subplot()
+    #ax = plt.subplot()
     fig, ax = plt.subplots()
 
     # Opis wykresu
@@ -54,9 +54,9 @@ def DrawChartProcess():
     ax.tick_params(axis="y", labelsize=14)
     ax.tick_params(axis='y', labelcolor='red')
 
-    ax.annotate('local max', xy=(13000, 800), xytext=(10000, 650),
-                arrowprops=dict(facecolor='black', shrink=3),
-                )
+    # ax.annotate('local max', xy=(13000, 800), xytext=(10000, 650),
+    #             arrowprops=dict(facecolor='black', shrink=3),
+    #             )
 
     lns1 = ax.plot(TimeLine, TempPiec, label='Temperatura pieca', color="red")
     lns2 = ax.plot(TimeLine, TempMetal, label='Temperatura metalu', color="orange")
@@ -66,14 +66,14 @@ def DrawChartProcess():
     ax.set_ylim(ylimit)
     ax.set_xlim(xlimit)
 
-    ax2 = ax.twinx()
+    #ax2 = ax.twinx()
 
     colorblue = 'tab:blue'
-    ax2.tick_params(axis="x", labelsize=14)
-    ax2.tick_params(axis="y", labelsize=14)
-    ax2.set_ylabel('Ciśnienie, bar', color=colorblue, fontsize='14')  # we already handled the x-label with ax1
-    lns4 = ax2.plot(TimeLine, Pressure0, dashes=[10, 2], color=colorblue, label='Ciśnienie w komorze')
-    ax2.tick_params(axis='y', labelcolor=colorblue)
+    ax.tick_params(axis="x", labelsize=14)
+    ax.tick_params(axis="y", labelsize=14)
+    ax.set_ylabel('Ciśnienie, bar', color=colorblue, fontsize='14')  # we already handled the x-label with ax1
+    lns4 = ax.plot(TimeLine, Pressure0, dashes=[10, 2], color=colorblue, label='Ciśnienie w komorze')
+    ax.tick_params(axis='y', labelcolor=colorblue)
 
     leg = lns1 + lns2 + lns3 + lns4
     labs = [l.get_label() for l in leg]
@@ -82,12 +82,12 @@ def DrawChartProcess():
     ax.grid()
     #ax2.grid(color = colorblue)
     #plt.rcParams.update({'font.size': 22})
-    plt.figure(figsize=(3, 3))
+    # plt.figure(figsize=(3, 3))
     plt.show()
 
     #np.set_printoptions(threshold=np.inf)
     #print(repr(array_from_file))
     #print(array_from_file[2:5])
 
-#DrawChartProcess()
+# DrawChartProcess()
 

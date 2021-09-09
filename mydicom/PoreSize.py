@@ -83,6 +83,7 @@ def ShowDCM(myfile):
     width=x[2]-x[1]
 
     plt.ion()
+    
     fig, axes = plt.subplots(1, 2, figsize=(14, 7))
    
     fig.canvas.manager.set_window_title('Porosity distribution')
