@@ -104,7 +104,6 @@ if __name__ == "__main__":
     mainWin.show()
     sys.exit(app.exec_())
 
-# to jest tylko komentarz
 
 # import sys
 # from PyQt5 import QtCore, QtWidgets
