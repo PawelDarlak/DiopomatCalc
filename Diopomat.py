@@ -5,6 +5,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
+
 # Define function to import external files when using PyInstaller.
 def resource_path(relative_path):
 # Get absolute path to resource, works for dev and for PyInstaller
@@ -95,7 +96,7 @@ class myMainWnd(QMainWindow):
     #     print('even filtr')
     #     return False
 
-
+#
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
