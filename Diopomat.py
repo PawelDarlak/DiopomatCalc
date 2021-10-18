@@ -5,7 +5,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
-#multifiles
+#multifiles - to jest napisane z AGH
 
 
 # Define function to import external files when using PyInstaller.
