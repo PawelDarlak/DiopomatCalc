@@ -39,7 +39,6 @@ class myMainWnd(QMainWindow):
         fileh.open(QtCore.QFile.ReadOnly)
         uic.loadUi(fileh, self)
         fileh.close()
-        
         path = resource_path('icon.png')
         self.setWindowIcon(QIcon(path))
         self.statusBar.setStyleSheet("color : red")
