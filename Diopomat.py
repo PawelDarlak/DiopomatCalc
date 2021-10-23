@@ -6,6 +6,7 @@ from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
 #multifiles - to jest napisane z AGH
+#coś jeszacze
 
 # Define function to import external files when using PyInstaller.
 def resource_path(relative_path):
