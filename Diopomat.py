@@ -50,9 +50,11 @@ class myMainWnd(QMainWindow):
     def on_pushButton_clicked(self):
         # me = DCMSlideClass()
         # me.nic()
-        self.label.setText("The toggle state is")
-        self.label.adjustSize()
+        self.FileName.setText("The toggle state is")
+        self.FileName.adjustSize()
         print('button')
+        
+        self.FileNamelineEdit.setText("dupa")
 
         dlg = CustomDialog()  # If you pass self, the dialog will be centered over the main window as before.
         if dlg.exec_():
@@ -98,6 +100,7 @@ class myMainWnd(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
     print('Run program...')
     mainWin = myMainWnd()
     mainWin.show()
