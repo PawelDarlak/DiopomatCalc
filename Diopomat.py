@@ -5,8 +5,6 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
 
-#multifiles - to jest napisane z AGH
-#coś jeszacze
 
 # Define function to import external files when using PyInstaller.
 def resource_path(relative_path):
@@ -42,7 +40,6 @@ class myMainWnd(QMainWindow):
         fileh.open(QtCore.QFile.ReadOnly)
         uic.loadUi(fileh, self)
         fileh.close()
-        
         path = resource_path('icon.png')
         self.setWindowIcon(QIcon(path))
         self.statusBar.setStyleSheet("color : red")
@@ -54,9 +51,11 @@ class myMainWnd(QMainWindow):
     def on_pushButton_clicked(self):
         # me = DCMSlideClass()
         # me.nic()
-        self.label.setText("The toggle state is")
-        self.label.adjustSize()
+        self.FileName.setText("The toggle state is")
+        self.FileName.adjustSize()
         print('button')
+        
+        self.FileNamelineEdit.setText("dupa")
 
         dlg = CustomDialog()  # If you pass self, the dialog will be centered over the main window as before.
         if dlg.exec_():
@@ -102,6 +101,7 @@ class myMainWnd(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
     print('Run program...')
     mainWin = myMainWnd()
     mainWin.show()
