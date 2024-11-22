@@ -26,7 +26,7 @@ def LoadFileDCM(inpath: str) -> None:
 def ShowDCM(myfile):
 
     try:
-        myDCMfile = pydicom.read_file(myfile)
+        myDCMfile = pydicom.dcmread(myfile)
     except InvalidDicomError:
         print("File is missing DICOM File Meta Information")
         return False
