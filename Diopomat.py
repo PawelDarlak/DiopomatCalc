@@ -45,7 +45,6 @@ class myMainWnd(QMainWindow):
         self.statusBar.setStyleSheet("background-color: rgb(221, 221, 221);")
         self.statusBar.showMessage("Diopomat: 1.01")
  
-
     @pyqtSlot()
     def on_pushButton_clicked(self):
         # me = DCMSlideClass()
