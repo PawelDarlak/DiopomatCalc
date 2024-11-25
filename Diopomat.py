@@ -61,9 +61,6 @@ class myMainWnd(QMainWindow):
         else:
             print("Cancel!")
     
-    # def on_pushButton_pressed(self):
-    # self.pushButton.hide()
-
     @pyqtSlot()
     def on_actionImport_triggered(self):
         options = QFileDialog.Options()
