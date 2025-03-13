@@ -4,6 +4,10 @@ from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog, QDialogButtonBox
 from PyQt5.QtCore import pyqtSlot 
 from PyQt5.QtGui import QIcon
 from mydicom import LoadDCM, ProcessChart, PoreSize
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Define function to import external files when using PyInstaller.
 def resource_path(relative_path):
